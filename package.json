@@ -1,11 +1,11 @@
 {
-  "name": "asciidoctor-docs-ui",
-  "description": "Produces the UI bundle for docs.asciidoctor.org",
-  "homepage": "https://docs.asciidoctor.org",
+  "name": "note-antora-theme",
+  "description": "Hos's antora UI bundle",
+  "homepage": "https://hossein-lap.github.io",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/asciidoctor/asciidoctor-docs-ui"
+    "url": "https://github.com/hossein-lap/note-antora-theme"
   },
   "scripts": {
     "start": "gulp preview"

@@ -1,6 +1,6 @@
 = Asciidoctor Docs UI
 // Variables:
-:current-release: prod-1
+:current-release: prod-2
 // Settings:
 :experimental:
 :hide-uri-scheme:
@@ -9,14 +9,14 @@ ifdef::env-github[]
 :important-caption: :exclamation:
 :tip-caption: :bulb:
 :!toc-title:
-:badges:
+// :badges:
 endif::[]
 // Project URLs:
 :project-repo-name: hossein-lap/note-antora-theme
 :url-project: https://github.com/{project-repo-name}
-:url-preview: https://asciidoctor-docs-ui.netlify.app
+// :url-preview: https://asciidoctor-docs-ui.netlify.app
 :url-ci: {project-repo-name}/actions
-:url-netlify-deploys: https://app.netlify.com/sites/asciidoctor-docs-ui/deploys
+// :url-netlify-deploys: https://app.netlify.com/sites/asciidoctor-docs-ui/deploys
 // External URLs:
 :url-antora: https://antora.org
 :url-antora-docs: https://docs.antora.org
