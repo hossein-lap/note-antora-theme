@@ -3,14 +3,11 @@
 use warnings;
 use strict;
 
+# icon list {{{
 my %icons = (
     nix => {
       icon  => "󱄅",
       color => "#5277c3",
-    },
-    nixos => {
-      icon  => "󱄅",
-      color => "#7ebae4",
     },
     tmux => {
       icon  => "",
@@ -96,10 +93,6 @@ my %icons = (
       icon  => "",
       color => "#f15a24",
     },
-    fish => {
-      icon  => "󰈺",
-      color => "#4aa3c1",
-    },
     ubuntu => {
       icon  => "",
       color => "#e95420",
@@ -107,10 +100,6 @@ my %icons = (
     arch => {
       icon  => "",
       color => "#1793d1",
-    },
-    mint => {
-      icon  => "",
-      color => "#87cf3e",
     },
     void => {
       icon  => "",
@@ -135,10 +124,6 @@ my %icons = (
     docker => {
       icon => "",
       color => '#1662ed',
-    },
-    elixir => {
-      icon => "",
-      color => '#8d71a1',
     },
     git => {
       icon => "",
@@ -176,18 +161,90 @@ my %icons = (
       icon  => "",
       color => "#3776ab",
     },
+    rhel => {
+      icon  => "󱄛",
+      color => "#cc0000",
+    },
+    debian => {
+      icon  => "",
+      color => "#a80030",
+    },
+    suse => {
+      icon  => "",
+      color => "#73ba25",
+    },
+
 );
+# }}}
 
 
 my $ui_root = '{{{uiRootPath}}}';
 my $img_dir = "$ui_root/img/badges";
 my $width   = 30;
+my $height  = 96;
+my $size    = 90;
 
-print qq{  <p class="badges">\n};
-
-for my $name (sort keys %icons) {
-    my $alt = ucfirst($name) . " Logo";
-    print qq{    <img src="$img_dir/badge-$name.png" alt="$alt" width="$width">\n};
+# create html img tag {{{
+sub html_print {
+    print qq{  <p class="badges">\n};
+    for my $name (sort keys %icons) {
+        my $alt = ucfirst($name) . " Logo";
+        print qq{    <img src="$img_dir/badge-$name.png" alt="$alt" width="$width">\n};
+    }
+    print qq{  </p>\n};
 }
+# }}}
 
-print qq{  </p>\n};
+# generate images {{{
+sub image_generate {
+    foreach my $key (keys %icons) {
+      my $name = $key;
+      my $output = "badge-$name.png";
+      my $icon = $icons{$key}->{icon};
+      my $color = $icons{$key}->{color};
+      $color = "#f8f8f8",
+
+      my @cmd_string = (
+
+        # "imagemagick", "string",
+        # "--text", "$icon",
+        # "--height", $size{pix},
+        # "--size", $size{txt},
+
+        "imagemagick-string",
+        "--input", "$icon",
+        "--length", $size{pix},
+        "--point", $size{txt},
+
+        "--width", $size{pix},
+        "--font", "FiraCode-Nerd-Font-Mono-Reg",
+        "--background", "none",
+        "--foreground", "$color",
+        "--output", $output,
+      );
+
+      my @cmd_shadow = (
+        "imagemagick", "shadow",
+        "--input", $output,
+        "--output", $output,
+      );
+
+      my @cmd_extend = (
+        "convert", $output,
+        "-resize", "",
+        "-extend", "",
+        $output,
+      );
+
+      my @cmd_trim = (
+        "imagemagick", "trim",
+        "--input", $output,
+        "--output", $output,
+      );
+
+      system @cmd_string;
+      system @cmd_trim;
+      system @cmd_shadow;
+    }
+}
+# }}}
