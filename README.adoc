@@ -12,7 +12,7 @@ ifdef::env-github[]
 :badges:
 endif::[]
 // Project URLs:
-:project-repo-name: hossein-lap/asciidoctor-docs-ui
+:project-repo-name: hossein-lap/note-antora-theme
 :url-project: https://github.com/{project-repo-name}
 :url-preview: https://asciidoctor-docs-ui.netlify.app
 :url-ci: {project-repo-name}/actions
