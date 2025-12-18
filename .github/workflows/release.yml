@@ -10,7 +10,7 @@ jobs:
   activate:
     runs-on: ubuntu-latest
     if: |
-      github.repository == 'hossein-lap/asciidoctor-docs-ui' && !startsWith(github.event.head_commit.message, 'Release ')
+      github.repository == 'hossein-lap/note-antora-theme' && !startsWith(github.event.head_commit.message, 'Release ')
     steps:
     - run: echo ok go
   build:
