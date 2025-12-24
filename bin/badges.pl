@@ -10,13 +10,15 @@ use File::Path qw(make_path);
 use Getopt::Long;
 $| = 1;  # autoflush
 
-my $partials = "";
+my $partials;
 my $images   = "";
 my $debug;
+my $help;
 
 GetOptions(
-    "partials=s"  => \$partials,
     "images=s"    => \$images,
+    "partials"    => \$partials,
+    "help"        => \$help,
     "debug"       => \$debug,
 ) or die "Invalid flags. Use -h for help\n";
 
@@ -187,9 +189,9 @@ my $cmd = shift;
 my $ui_root = '{{{uiRootPath}}}';
 my $ui_img  = "img/badges";
 my $img_dir = "$ui_root/$ui_img";
-my $width   = 30;
-my $height  = 96;
-my $size    = 90;
+my $width   = 100;
+my $height  = 100;
+my $size    = 120;
 my $font    = "FiraCode-Nerd-Font-Mono-Reg";
 my $prompt  = basename($0);
 
@@ -211,6 +213,7 @@ usage: $prompt COMMAND OPTIONS
        --partials   src/partial direcotry path
        --images     src/img direcotry path
 EOF
+  print STDERR $main;
 }
 # }}}
 
@@ -567,8 +570,8 @@ sub imshadow {
 
 # create html img tag {{{
 sub html_print {
-    die "No partials directory specified" unless $partials;
-    die "No partials directory specified" unless -d $partials;
+    # die "No partials directory specified" unless $partials;
+    # die "No partials directory specified" unless -d $partials;
     print qq{  <p class="badges">\n};
     for my $name (sort keys %icons) {
         my $alt = ucfirst($name) . " Logo";
@@ -588,7 +591,7 @@ sub image_generate {
       my $output = "badge-$name.png";
       my $icon = $icons{$key}->{icon};
       my $color = $icons{$key}->{color};
-      $color = "#f8f8f8",
+      $color = "#000000",
 
       imstring({
           input => "null",
@@ -602,10 +605,10 @@ sub image_generate {
           output => $output,
       });
 
-      imshadow({
-          input => $output,
-          output => $output,
-      });
+      # imshadow({
+      #     input => $output,
+      #     output => $output,
+      # });
 
       imtrim({
           input => $output,
@@ -618,7 +621,10 @@ sub image_generate {
 }
 # }}}
 
-print_usage() unless $cmd;
+if ($help || !$cmd) {
+  print_usage();
+  exit 0;
+}
 html_print() if $cmd eq "print";
 image_generate() if $cmd eq "generate" || $cmd eq "create";
 
